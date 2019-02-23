@@ -3,19 +3,20 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Frontpage from "./views/Frontpage.vue";
-import Register from "./views/Register.vue";
+import ErrorPage from "./views/Error.vue";
+import firebase from "firebase";
 
 Vue.use(Router);
 
 const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  meta: {
-    requiresAuth: true
-  },
   routes: [
     {
       path: "/",
+      meta: {
+        requiresAuth: true
+      },
       name: "home",
       component: Home,
       children: [
@@ -38,35 +39,46 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
+      meta: {
+        requiresAuth: false
+      },
       component: Login
     },
     {
-      path: "/register",
-      name: "register",
-      component: Register
+      path: "*",
+      name: "Error",
+      component: ErrorPage
     }
+    // {
+    //   path: "/register",
+    //   name: "register",
+    //   component: Register
+    // }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  // const currentUser = firebase.auth().currentUser;
-  // const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-  // if (requiresAuth && !currentUser) next("/login");
-  // else if (!requiresAuth && currentUser) next("/");
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth && !currentUser) next("/login");
+  else if (!requiresAuth && currentUser) next("/");
+  else next();
+  // if (requiresAuth && true) next("/login");
+  // else if (!requiresAuth && false) next("/");
   // else next();
 
-  const publicPages = ["/login", "/register"];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("user");
-  console.log(to.path);
+  // const publicPages = ["/login", "/register"];
+  // const authRequired = !publicPages.includes(to.path);
+  // const loggedIn = localStorage.getItem("user");
+  // console.log(to.path);
+  // console.log(loggedIn);
+  // console.log(authRequired);
+  // if (authRequired && !loggedIn) {
+  //   // localStorage.setItem("user", true);
+  //   next("/login");
+  // }
 
-  if (authRequired && !loggedIn) {
-    // localStorage.setItem("user", true);
-    //next("/login");
-  }
-
-  next();
+  // next();
 });
 
 export default router;
