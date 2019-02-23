@@ -2,7 +2,7 @@
   <div class="home">
     <div id="nav">
       <router-link to="/">Skrá tíma</router-link> |
-      <router-link to="/skratima">Skoða tíma</router-link>
+      <router-link to="/skodatima">Skoða tíma</router-link>
     </div>
     <router-view />
   </div>
