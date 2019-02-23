@@ -1,10 +1,10 @@
 <template>
   <div class="login">
     <h1>Innskrá</h1>
-    <input type="text" placeholder="Notendanafn" /><br />
-    <input type="password" placeholder="Lykilorð" /><br />
-    <input type="submit" placeholder="Login" /><br />
-    <a href="/register">Nýskrá</a>
+    <input type="text" v-model="email" placeholder="Notendanafn" /><br />
+    <input type="password" v-model="password" placeholder="Lykilorð" /><br />
+    <input type="submit" @click="login" placeholder="Login" /><br />
+    <!-- <a href="/register">Nýskrá</a> -->
   </div>
 </template>
 
@@ -25,11 +25,13 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
-          function(user) {
+          (user) => {
             console.log(user);
-            alert("Successfully logged in");
+            // alert("Successfully logged in");
+            this.$router.replace("/");
           },
-          function(err) {
+          (err) => {
+            console.log(err);
             alert("There was an error.", err);
           }
         );
