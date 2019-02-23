@@ -1,18 +1,20 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    class="elevation-1"
-  >
-    <template slot="items" slot-scope="props">
-      <td>{{ props.item.description }}</td>
-      <td class="text-xs-right">{{ props.item.jobid }}</td>
-      <td class="text-xs-right">{{ props.item.hours }}</td>
-      <td class="text-xs-right">{{ props.item.date }}</td>
-      <td class="text-xs-right">{{ props.item.userid }}</td>
-      <td class="text-xs-right">{{ props.item.done }}</td>
-    </template>
-  </v-data-table>
+  
+    <v-data-table
+      :headers="headers"
+      :items="items"
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.description }}</td>
+        <td class="text-xs-right">{{ props.item.jobid }}</td>
+        <td class="text-xs-right">{{ props.item.hours }}</td>
+        <td class="text-xs-right">{{ props.item.date }}</td>
+        <td class="text-xs-right">{{ props.item.userid }}</td>
+        <td class="text-xs-right">{{ props.item.done }}</td>
+      </template>
+    </v-data-table>
+  
 </template>
 
 <script>

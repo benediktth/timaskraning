@@ -1,10 +1,12 @@
 <template>
-  <div class="home">
+  <div>
     <div id="nav">
       <router-link to="/">Skrá tíma</router-link> |
       <router-link to="/skodatima">Skoða tíma</router-link>
     </div>
-    <router-view />
+    <div class="section">
+      <router-view />
+    </div>
   </div>
 </template>
 
