@@ -3,12 +3,16 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Frontpage from "./views/Frontpage.vue";
+import Register from "./views/Register.vue";
 
 Vue.use(Router);
 
-export const router = new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  meta: {
+    requiresAuth: true
+  },
   routes: [
     {
       path: "/",
@@ -35,20 +39,34 @@ export const router = new Router({
       path: "/login",
       name: "login",
       component: Login
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: Register
     }
   ]
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login"];
+  // const currentUser = firebase.auth().currentUser;
+  // const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  // if (requiresAuth && !currentUser) next("/login");
+  // else if (!requiresAuth && currentUser) next("/");
+  // else next();
+
+  const publicPages = ["/login", "/register"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("user");
   console.log(to.path);
 
   if (authRequired && !loggedIn) {
-    localStorage.setItem("user", true);
-    return next("/login");
+    // localStorage.setItem("user", true);
+    next("/login");
   }
 
   next();
 });
+
+export default router;
