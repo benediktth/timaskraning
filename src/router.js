@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
 
   if (authRequired && !loggedIn) {
     // localStorage.setItem("user", true);
-    next("/login");
+    //next("/login");
   }
 
   next();
