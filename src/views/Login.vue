@@ -25,12 +25,12 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
-          (user) => {
+          user => {
             console.log(user);
             // alert("Successfully logged in");
             this.$router.replace("/");
           },
-          (err) => {
+          err => {
             console.log(err);
             alert("There was an error.", err);
           }

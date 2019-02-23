@@ -63,22 +63,6 @@ router.beforeEach((to, from, next) => {
   if (requiresAuth && !currentUser) next("/login");
   else if (!requiresAuth && currentUser) next("/");
   else next();
-  // if (requiresAuth && true) next("/login");
-  // else if (!requiresAuth && false) next("/");
-  // else next();
-
-  // const publicPages = ["/login", "/register"];
-  // const authRequired = !publicPages.includes(to.path);
-  // const loggedIn = localStorage.getItem("user");
-  // console.log(to.path);
-  // console.log(loggedIn);
-  // console.log(authRequired);
-  // if (authRequired && !loggedIn) {
-  //   // localStorage.setItem("user", true);
-  //   next("/login");
-  // }
-
-  // next();
 });
 
 export default router;
