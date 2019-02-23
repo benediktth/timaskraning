@@ -91,8 +91,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-@import "../../node_modules/bulma/css/bulma.css";
-
-</style>
