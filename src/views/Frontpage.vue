@@ -14,7 +14,6 @@
       <v-flex xs12>
         <v-text-field
           v-model="hours"
-          :error-messages="HoursErrors"
           label="Tímar"
           required
           @input="$v.email.$touch()"
@@ -66,6 +65,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
 
@@ -91,6 +91,7 @@
       menu2: false,
     }),
 
+    // ekki notað en geymi þetta hér
     computed: {
       checkboxErrors () {
         const errors = []
@@ -122,7 +123,33 @@
 
     methods: {
       submit () {
-        this.$v.$touch()
+        //this.$v.$touch()
+        console.log(this.jobid);
+        console.log(this.hours);
+        console.log(this.data);
+        console.log(this.description);
+
+        var user = firebase.auth().currentUser;
+
+        if (user) {
+          firebase.firestore()
+            .collection("verk")
+            .add({
+              //userid: user.uid,
+              jobid: this.jobid,
+              hours: this.hours,
+              //date: this.date,
+              description: this.data
+          })
+          .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+        } else {
+          console.log('Ekki user');
+        }
       },
       clear () {
         this.$v.$reset()
