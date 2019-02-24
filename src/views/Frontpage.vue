@@ -130,16 +130,16 @@ import firebase from "firebase";
         console.log(this.description);
 
         var user = firebase.auth().currentUser;
+        var db = firebase.firestore();
+        console.log(user.uid);
 
         if (user) {
-          firebase.firestore()
-            .collection("verk")
-            .add({
-              //userid: user.uid,
+          db.collection("verk").add({
+               userid: user.uid,
               jobid: this.jobid,
               hours: this.hours,
               //date: this.date,
-              description: this.data
+              //description: this.data
           })
           .then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
